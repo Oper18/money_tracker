@@ -124,7 +124,9 @@ def index():
 def auth():
     body = request.json
     username = body.get('username')
+    username = username.strip()
     password = body.get('password')
+    password = password.strip()
 
     user_info = User.where('username', username).or_where('email', username).first()
     if user_info:
