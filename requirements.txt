@@ -1,0 +1,7 @@
+Flask==1.1.2
+Jinja2==2.11.2
+git+https://github.com/Oper18/orator.git
+psycopg2==2.8.6
+requests==2.25.1
+gunicorn==20.0.4
+PyJWT==2.0.0

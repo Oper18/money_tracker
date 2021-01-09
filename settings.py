@@ -1,0 +1,9 @@
+# coding: utf-8
+
+SERVER_SECRET = 'secret'
+MEMCACHED_ACCESS_TOKEN_LIFETIME = 24*60*60
+MEMCACHED_REFRESH_TOKEN_LIFETIME = 24*60*60*60
+
+LOCAL_SALT = '55324b267d5b43f6a09e3d48e6c4e29d'
+
+CB_URI_RATES = 'https://www.cbr-xml-daily.ru/latest.js'
