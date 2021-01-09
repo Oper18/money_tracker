@@ -21,7 +21,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_USER=${DB_USER}
-      - POSTGRES_DB=ares
+      - POSTGRES_DB=money_tracker
     networks:
       - money_tracker-network
     volumes:
