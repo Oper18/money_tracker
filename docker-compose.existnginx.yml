@@ -1,20 +1,6 @@
 version: "3.6"
 
 services:
-  money_tracker_nginx:
-    image: money_tracker_front:latest
-    container_name: money_tracker_nginx
-    volumes:
-      - ${NGINX_CONFIG}:/etc/nginx/conf.d/money_tracker.conf
-      - ${CERT_PATH}:/etc/letsencrypt
-    ports:
-      - 8080:80
-      - 8443:443
-    depends_on:
-      - money_tracker_site
-    networks:
-      - money_tracker-network
-
   money_tracker_db:
     image: postgres:11
     container_name: money_tracker_db
