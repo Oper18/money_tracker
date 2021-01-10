@@ -147,7 +147,7 @@ class ComingIns extends(React.Component) {
                                 </div>
                             </div>
                                 <div className='create_purchase_wrapper'>
-                                    <div className='create_purchase_btn' id='create-purchase-id' onClick={this.createPurchase}>
+                                    <div className='create_purchase_btn' id='create-purchase-id' onClick={this.createComingIns}>
                                         Отправить
                                     </div>
                                 </div>
