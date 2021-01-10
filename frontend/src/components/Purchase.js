@@ -116,6 +116,8 @@ class Purchase extends(React.Component) {
 
     correctPurchase = (e) => {
         var purchase_id = e.target.dataset.id;
+        document.getElementById('purchase_' + purchase_id).classList.remove('success_update_purchase');
+        document.getElementById('purchase_' + purchase_id).classList.remove('danger_update_purchase');
         var complete_purchase = false;
         if (e.target.id.includes('complete-purchase-id')) {
             complete_purchase = e.target.checked;

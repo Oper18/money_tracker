@@ -260,7 +260,14 @@
     margin-top: 0.5rem;
 }
 .purchase_name_span_wrapper {
-    max-width: 60%
+    max-width: 60%;
+}
+.purchase_name_span {
+    display: block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .purchase_value_span_wrapper {
     max-width: 30%
@@ -285,4 +292,22 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+@keyframes success {
+    from {background-color: transparent;}
+    50% {background-color: #92c195;}
+    to {background-color: transparent;}
+}
+
+@keyframes danger {
+    from {background-color: transparent;}
+    50% {background-color: #f7a6a6;}
+    to {background-color: transparent;}
+}
+.success_update_purchase {
+    animation: success 2s;
+}
+.danger_update_purchase {
+    animation: danger 2s;
 }

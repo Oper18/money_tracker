@@ -137,6 +137,7 @@ class ComingIns(Model):
         currency = integer
         creator = integer
         loan = integer, nullable
+        debt = integer, nullable
         timestamps
     """
 

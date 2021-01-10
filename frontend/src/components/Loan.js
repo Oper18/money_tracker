@@ -96,6 +96,8 @@ class Loan extends(React.Component) {
 
     correctLoan = (e) => {
         var loan_id = e.target.dataset.id;
+        document.getElementById('loan_' + loan_id).classList.remove('success_update_purchase');
+        document.getElementById('loan_' + loan_id).classList.remove('danger_update_purchase');
         var complete_loan = false;
         if (e.target.id.includes('complete-loan-id')) {
             complete_loan = e.target.checked;
@@ -118,7 +120,7 @@ class Loan extends(React.Component) {
                     return
                 }
                 else if (res.status === 406 || res.status === 500 || res.status === 400) {
-                    document.getElementById('loan_' + loan_id).classList.add('danger_update_loan');
+                    document.getElementById('loan_' + loan_id).classList.add('danger_update_purchase');
                     return null;
                 }
                 const response = res.json();
@@ -126,7 +128,7 @@ class Loan extends(React.Component) {
             })
             .then(json => {
                 if (json) {
-                    document.getElementById('loan_' + loan_id).classList.add('success_update_loan');
+                    document.getElementById('loan_' + loan_id).classList.add('success_update_purchase');
                     if (complete_loan) {
                         var loans = this.state.loans;
                         loans = loans.filter(p => parseInt(p['id']) !== parseInt(loan_id));

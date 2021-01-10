@@ -319,6 +319,7 @@ def purchase(*args, **kwargs):
     elif request.method == 'POST':
         body = request.json
         value = body.get('value', 0.0)
+        value = float(value)
         currency = body.get('currency', None)
         if currency is None:
             currency = Currency.where('name', 'rub').first().id
@@ -458,6 +459,7 @@ def debts(*args, **kwargs):
         body = request.json
         name = body.get('name', '')
         value = body.get('value', 0.0)
+        value = float(value)
         currency = body.get('currency', None)
         if currency is None:
             currency = Currency.where('name', 'rub').first().id
@@ -471,18 +473,17 @@ def debts(*args, **kwargs):
                            currency=currency,
                            name=name,
                            end_date=end_date)
-        purchase = Purchase.create(name=name,
-                                   value=value,
-                                   currency=currency,
-                                   complete=True,
-                                   creator=user.id,
-                                   description=description,
-                                   debt=debt.id)
+        purchase = ComingIns.create(name=name,
+                                    value=value,
+                                    currency=currency,
+                                    creator=user.id,
+                                    description=description,
+                                    debt=debt.id)
         purchase = purchase.serialize()
         purchase['currency_name'] = Currency.where('id', currency).first().name
         purchase['debt_complete'] = False
-        purchase['debt_end_date'] = debt.end_date
-        replace_balance(value=float(value) * (-1), currency=currency)
+        purchase['end_date'] = debt.end_date
+        replace_balance(value=float(value), currency=currency)
         if purchase['currency_name'] != 'rub':
             value = replace_value_with_rate(value=float(value), current_currency=purchase['currency_name'], target_currency='rub')
         return app_response(data={'item': purchase, 'rub_value': value})
@@ -491,6 +492,7 @@ def debts(*args, **kwargs):
         debt_id = body.get('id', None)
         name = body.get('name', None)
         value = body.get('value', 0.0)
+        value = float(value)
         currency = body.get('currency', None)
         if currency is None:
             currency = Currency.where('name', 'rub').first().id
@@ -519,19 +521,29 @@ def debts(*args, **kwargs):
             debt.name = name if name is not None else debt.name
             debt.complete = complete
             debt.save()
-            purchase = Purchase.create(name=debt.name,
-                                       value=abs(debt_pay_value),
-                                       currency=debt.currency,
-                                       complete=True,
-                                       creator=user.id,
-                                       description=description,
-                                       debt=debt.id)
+            if debt_pay_value > 0.0:
+                purchase = Purchase.create(name=debt.name,
+                                           value=abs(debt_pay_value),
+                                           currency=debt.currency,
+                                           complete=True,
+                                           creator=user.id,
+                                           description=description,
+                                           debt=debt.id)
+            elif debt_pay_value < 0.0:
+                purchase = ComingIns.create(name=debt.name,
+                                            value=abs(debt_pay_value),
+                                            currency=debt.currency,
+                                            creator=user.id,
+                                            description=description,
+                                            debt=debt.id)
             purchase = purchase.serialize()
             purchase['currency_name'] = Currency.where('id', currency).first().name
             purchase['debt_complete'] = complete
             purchase['debt_end_date'] = debt.end_date
-            if debt_pay_value > 0:
+            if debt_pay_value > 0.0:
                 replace_balance(value=float(debt_pay_value) * (-1), currency=currency)
+            elif debt_pay_value < 0.0:
+                replace_balance(value=abs(float(debt_pay_value)), currency=currency)
             if purchase['currency_name'] != 'rub':
                 debt_pay_value = replace_value_with_rate(value=float(debt_pay_value), current_currency=purchase['currency_name'], target_currency='rub')
             return app_response(data={'item': purchase, 'rub_value': debt_pay_value})
@@ -579,6 +591,7 @@ def accumulation(*args, **kwargs):
         body = request.json
         name = body.get('name', '')
         value = body.get('value', 0.0)
+        value = float(value)
         currency = request.args.get('currency', None)
         if currency is None:
             currency = Currency.where('name', 'rub').first().id
@@ -706,6 +719,7 @@ def loans(*args, **kwargs):
     elif request.method == 'POST':
         body = request.json
         value = body.get('value', 0.0)
+        value = float(value)
         name = body.get('name', '')
         currency = request.args.get('currency', None)
         if currency is None:
@@ -823,6 +837,7 @@ def coming_ins(*args, **kwargs):
     elif request.method == 'POST':
         body = request.json
         value = body.get('value', 0.0)
+        value = float(value)
         currency = body.get('currency', None)
         if currency is None:
             currency = Currency.where('name', 'rub').first().id
@@ -843,6 +858,8 @@ def coming_ins(*args, **kwargs):
         body = request.json
         coming_id = body.get('id', None)
         value = body.get('value', None)
+        if value is not None:
+            value = float(value)
         currency = body.get('currency', None)
         name = body.get('name', None)
         description = body.get('description', None)

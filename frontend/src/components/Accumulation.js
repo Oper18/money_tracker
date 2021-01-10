@@ -101,6 +101,8 @@ class Accumulation extends(React.Component) {
 
     correctAccumulation = (e) => {
         var accumulation_id = e.target.dataset.id;
+        document.getElementById('accumulation_' + accumulation_id).classList.remove('success_update_purchase');
+        document.getElementById('accumulation_' + accumulation_id).classList.remove('danger_update_purchase');
         var complete_accumulation = false;
         if (e.target.id.includes('complete-accumulation-id')) {
             complete_accumulation = e.target.checked;
@@ -123,7 +125,7 @@ class Accumulation extends(React.Component) {
                     return
                 }
                 else if (res.status === 406 || res.status === 500 || res.status === 400) {
-                    document.getElementById('accumulation_' + accumulation_id).classList.add('danger_update_accumulation');
+                    document.getElementById('accumulation_' + accumulation_id).classList.add('danger_update_purchase');
                     return null;
                 }
                 const response = res.json();
@@ -131,7 +133,7 @@ class Accumulation extends(React.Component) {
             })
             .then(json => {
                 if (json) {
-                    document.getElementById('accumulation_' + accumulation_id).classList.add('success_update_accumulation');
+                    document.getElementById('accumulation_' + accumulation_id).classList.add('success_update_purchase');
                     if (complete_accumulation) {
                         var accumulations = this.state.accumulations;
                         accumulations = accumulations.filter(p => parseInt(p['id']) !== parseInt(accumulation_id));
