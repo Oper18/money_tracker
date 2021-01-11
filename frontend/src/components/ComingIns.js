@@ -103,7 +103,7 @@ class ComingIns extends(React.Component) {
                             <span className='purchase_name'>{coming_in.name}</span>
                         </div>
                         <div className='purchase_row_item purchase_value_span_wrapper'>
-                            <span className='purchase_value_span'>{coming_in.value}</span>
+                            <span className='purchase_value_span'>parseFloat({coming_in.value}).toFixed(2)</span>
                             <span className='purchase_currency_span'> {coming_in.currency_name}</span>
                         </div>
                     </div>

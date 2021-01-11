@@ -187,7 +187,7 @@ class Accumulation extends(React.Component) {
                             <div className='purchase_value_currency_wrapper'>
                                 <div className='purchase_value'>
                                     <input type='number' step='0.01' className='purchase_value exist_purchase_input' id={'accumulation-value-id-' + accumulation.id}
-                                        data-id={accumulation.id} defaultValue={accumulation.value} onChange={_.debounce(this.correctAccumulation, 500)} />
+                                        data-id={accumulation.id} defaultValue=parseFloat({accumulation.value}).toFixed(2) onChange={_.debounce(this.correctAccumulation,1500)} />
                                 </div>
                                 <div className='purchase_currency_wrapper'>
                                     <select id={'accumulation-currency-id' + accumulation.id} className='purchase_currency'>

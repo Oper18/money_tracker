@@ -179,7 +179,7 @@ class Debt extends(React.Component) {
                             <div className='purchase_value_currency_wrapper'>
                                 <div className='purchase_value'>
                                     <input type='number' step='0.01' className='purchase_value exist_purchase_input' id={'debt-value-id-' + debt.id}
-                                        data-id={debt.id} defaultValue={debt.value} onChange={_.debounce(this.correctDebt, 500)} />
+                                        data-id={debt.id} defaultValue=parseFloat({debt.value}).toFixed(2) onChange={_.debounce(this.correctDebt,1500)} />
                                 </div>
                                 <div className='purchase_currency_wrapper'>
                                     <select id={'debt-currency-id' + debt.id} className='purchase_currency'>
@@ -192,7 +192,7 @@ class Debt extends(React.Component) {
                     <div className='purchase_row_item'>
                         <div className='purchase_value'>
                             <input type='date' className='purchase_end_date' id={'debt-end-date-id-' + debt.id}
-                                data-id={debt.id} defaultValue={debt.end_date} onChange={_.debounce(this.correctDebt, 500)} />
+                                data-id={debt.id} defaultValue={debt.end_date} onChange={_.debounce(this.correctDebt,1500)} />
                         </div>
                     </div>
                 </div>

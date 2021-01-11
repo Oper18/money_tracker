@@ -176,7 +176,7 @@ class Loan extends(React.Component) {
                             <div className='purchase_value_currency_wrapper'>
                                 <div className='purchase_value'>
                                     <input type='number' step='0.01' className='purchase_value exist_purchase_input' id={'loan-value-id-' + loan.id}
-                                        data-id={loan.id} defaultValue={loan.value} onChange={_.debounce(this.correctLoan, 500)} />
+                                        data-id={loan.id} defaultValue=parseFloat({loan.value}).toFixed(2) onChange={_.debounce(this.correctLoan,1500)} />
                                 </div>
                                 <div className='purchase_currency_wrapper'>
                                     <select id={'loan-currency-id' + loan.id} className='purchase_currency'>
