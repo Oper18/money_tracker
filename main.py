@@ -828,6 +828,7 @@ def coming_ins(*args, **kwargs):
                                 '{}.name'.format(Currency.__table__),
                                 '{}.closed'.format(Loan.__table__),
                             ). \
+                            order_by_raw('{}.created_at DESC NULLS LAST'.format(ComingIns.__table__)). \
                             get([
                                 '{}.*'.format(ComingIns.__table__),
                                 '{}.name as currency_name'.format(Currency.__table__),
@@ -888,15 +889,15 @@ def coming_ins(*args, **kwargs):
                          two='{}.currency'.format(Purchase.__table__),
                          type='left outer'). \
                     group_by(
-                    '{}.id'.format(Purchase.__table__),
-                    '{}.name'.format(Currency.__table__),
-                    '{}.closed'.format(Loan.__table__),
-                ). \
+                        '{}.id'.format(Purchase.__table__),
+                        '{}.name'.format(Currency.__table__),
+                        '{}.closed'.format(Loan.__table__),
+                    ). \
                     first([
-                    '{}.*'.format(Purchase.__table__),
-                    '{}.name as currency_name'.format(Currency.__table__),
-                    '{}.closed as loan_closed'.format(Loan.__table__),
-                ]). \
+                        '{}.*'.format(Purchase.__table__),
+                        '{}.name as currency_name'.format(Currency.__table__),
+                        '{}.closed as loan_closed'.format(Loan.__table__),
+                    ]). \
                     serialize()
                 if balance_value:
                     replace_balance(value=float(value) * (-1), currency=currency)
