@@ -91,6 +91,7 @@ class ComingIns extends(React.Component) {
 
     renderComingInsList() {
         return this.state.coming_ins.map((coming_in) => {
+            var show_value = parseFloat(coming_in.value).toFixed(2);
             return (
                 <div className='purchase_table_row_wrapper' id={'coming_in_' + coming_in.id}
                     key={'coming_in_' + coming_in.id} data-id={coming_in.id}>
@@ -103,7 +104,7 @@ class ComingIns extends(React.Component) {
                             <span className='purchase_name'>{coming_in.name}</span>
                         </div>
                         <div className='purchase_row_item purchase_value_span_wrapper'>
-                            <span className='purchase_value_span'>parseFloat({coming_in.value}).toFixed(2)</span>
+                            <span className='purchase_value_span'>{show_value}</span>
                             <span className='purchase_currency_span'> {coming_in.currency_name}</span>
                         </div>
                     </div>

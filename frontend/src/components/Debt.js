@@ -155,6 +155,7 @@ class Debt extends(React.Component) {
 
     renderDebtList() {
         return this.state.debts.map((debt) => {
+            var show_value = parseFloat(debt.value).toFixed(2);
             return (
                 <div className='purchase_table_row_wrapper' id={'debt_' + debt.id}
                     key={'debt_' + debt.id} data-id={debt.id}>
@@ -179,7 +180,7 @@ class Debt extends(React.Component) {
                             <div className='purchase_value_currency_wrapper'>
                                 <div className='purchase_value'>
                                     <input type='number' step='0.01' className='purchase_value exist_purchase_input' id={'debt-value-id-' + debt.id}
-                                        data-id={debt.id} defaultValue=parseFloat({debt.value}).toFixed(2) onChange={_.debounce(this.correctDebt,1500)} />
+                                        data-id={debt.id} defaultValue={show_value} onChange={_.debounce(this.correctDebt,1500)} />
                                 </div>
                                 <div className='purchase_currency_wrapper'>
                                     <select id={'debt-currency-id' + debt.id} className='purchase_currency'>
