@@ -215,7 +215,7 @@ def purchase(*args, **kwargs):
                                         '{}.name'.format(Currency.__table__),
                                         '{}.first_name'.format(User.__table__),
                                     ). \
-                                    order_by_raw('{}.created_at DESC NULLS LAST'.format(Purchase.__table__)). \
+                                    order_by_raw('{}.updated_at DESC NULLS LAST'.format(Purchase.__table__)). \
                                     get([
                                         '{}.*'.format(Purchase.__table__),
                                         '{}.closed as loan_closed'.format(Loan.__table__),
@@ -227,8 +227,8 @@ def purchase(*args, **kwargs):
                                     serialize()})
             elif all_items and completed is not None:
                 return app_response(data={'items': Purchase. \
-                                    where('{}.created_at'.format(Purchase.__table__), '>=', first_day). \
-                                    where('{}.created_at'.format(Purchase.__table__), '<=', last_day). \
+                                    where('{}.updated_at'.format(Purchase.__table__), '>=', first_day). \
+                                    where('{}.updated_at'.format(Purchase.__table__), '<=', last_day). \
                                     where('{}.complete'.format(Purchase.__table__), completed). \
                                     join(table=Loan.__table__,
                                          one='{}.id'.format(Loan.__table__),
@@ -258,7 +258,7 @@ def purchase(*args, **kwargs):
                                         '{}.name'.format(Currency.__table__),
                                         '{}.first_name'.format(User.__table__),
                                     ). \
-                                    order_by_raw('{}.created_at DESC NULLS LAST'.format(Purchase.__table__)). \
+                                    order_by_raw('{}.updated_at DESC NULLS LAST'.format(Purchase.__table__)). \
                                     get([
                                         '{}.*'.format(Purchase.__table__),
                                         '{}.closed as loan_closed'.format(Loan.__table__),
