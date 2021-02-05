@@ -184,8 +184,8 @@ def purchase(*args, **kwargs):
             last_day = datetime.datetime.now().date().replace(day=last_day)
             if all_items and completed is None:
                 return app_response(data={'items': Purchase. \
-                                    where('{}.created_at'.format(Purchase.__table__), '>=', first_day). \
-                                    where('{}.created_at'.format(Purchase.__table__), '<=', last_day). \
+                                    where('{}.updated_at'.format(Purchase.__table__), '>=', first_day). \
+                                    where('{}.updated_at'.format(Purchase.__table__), '<=', last_day). \
                                     or_where('{}.complete'.format(Purchase.__table__), False). \
                                     join(table=Loan.__table__,
                                          one='{}.id'.format(Loan.__table__),
@@ -358,9 +358,10 @@ def purchase(*args, **kwargs):
             purchase = Purchase.where('id', purchase_id).first()
             if purchase and not purchase.complete:
                 balance_value = None
-                if value is not None:
-                    balance_value = purchase.value - value
+                if value is not None and not complete:
                     purchase.value = value
+                elif not value and complete:
+                    balance_value = purchase.value
                 purchase.currency = currency if currency is not None else purchase.currency
                 purchase.name = name if name is not None else purchase.name
                 purchase.description = description if description is not None else purchase.description
