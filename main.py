@@ -299,7 +299,7 @@ def purchase(*args, **kwargs):
                     '{}.name'.format(Currency.__table__),
                     '{}.first_name'.format(User.__table__),
                 ). \
-                order_by_raw('{}.created_at DESC NULLS LAST'.format(Purchase.__table__)). \
+                order_by_raw('{}.updated_at DESC NULLS LAST'.format(Purchase.__table__)). \
                 get([
                     '{}.*'.format(Purchase.__table__),
                     '{}.closed as loan_closed'.format(Loan.__table__),
