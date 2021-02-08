@@ -537,6 +537,8 @@ def debts(*args, **kwargs):
                                             creator=user.id,
                                             description=description,
                                             debt=debt.id)
+            else:
+                purchase = Debt.where('id', debt_id).first()
             purchase = purchase.serialize()
             purchase['currency_name'] = Currency.where('id', currency).first().name
             purchase['debt_complete'] = complete
