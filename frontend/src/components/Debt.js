@@ -163,7 +163,7 @@ class Debt extends(React.Component) {
                         <div className='purchase_row_item preschedule_purchase_chbox_wrapper'>
                             <div className='custom_chbox_wrapper'>
                                 <input type='checkbox' id={'complete-debt-id-' + debt.id} name={'debt_complete-' + debt.id}
-                                    className='complete_purchase_chbox' data-id={debt.id} onChange={this.correctdebt} />
+                                    className='complete_purchase_chbox' data-id={debt.id} onChange={this.correctDebt} />
                                 <span className='complete_purchase_chbox_span'></span>
                             </div>
                         </div>
